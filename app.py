@@ -81,7 +81,7 @@ def update_book(id):
     rv = {}
     for book in book_list:
         if book.id == int(id):
-            if "title" in keys(data):
+            if "title" in data.keys():
                 book.title = data["title"]
             rv = book.export_data()
             flash('Book %s sucessful updated!' % book.title)

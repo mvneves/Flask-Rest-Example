@@ -29,16 +29,9 @@ Just run on terminal:
 
 Web Service will be running on [http://127.0.0.1:5000/]()
 
-## Test it with Postman
-
-Download Postman from https://www.getpostman.com/
-
-    $ tar xzf Postman-linux-x64-6.3.0.tar.gz
-    $ cd Postman
-    $ ./Postman
 
 
-## It is also possible to test it via UNIX command line interface
+## Test it using cURL command line tool
 
 ### GET /books - returns the list of books
 
@@ -49,16 +42,18 @@ Get a list of books:
 
 Output:
 
-    [
-        {
-            "id": 1,
-            "name": "Lord of the rings"
-        },
-        {
-            "id": 2,
-            "name": "Dive into Python"
-        }
-    ]
+	[
+	    {
+	        "author": "Tolkien, J. R. R.",
+	        "id": 1,
+	        "title": "Lord of the Rings"
+	    },
+	    {
+	        "author": "Asimov, Isaac",
+	        "id": 2,
+	        "title": "Foundation"
+	    }
+	]
 
 ### GET /books/<id> - returns the book entry specified by id
 
@@ -69,25 +64,28 @@ Get a list of books:
 
 Output:
 
-    {
-        "id": 1,
-        "name": "Lord of the rings"
-    }
+	{
+	    "author": "Tolkien, J. R. R.",
+	    "id": 1,
+	    "title": "Lord of the Rings"
+	}
 
 ### POST /books - creates a new book entry
 
 Create a new book entry:
 
     curl -s -H "Content-Type: application/json" -X POST \
-    --data '{"name": "Twenty Thousand Leagues Under the Sea"}' \
+    --data '{"author": "Verne, Jules",
+             "title": "Twenty Thousand Leagues Under the Sea"}' \
     http://localhost:5000/books | python -m json.tool
 
 Output:
 
-    {
-        "id": 3,
-        "name": "Twenty Thousand Leagues Under the Sea"
-    }
+	{
+	    "author": "Verne, Jules",
+	    "id": 3,
+	    "title": "Twenty Thousand Leagues Under the Sea"
+	}
 
 
 ### PUT /books/<id> - update the book entry specified by id
@@ -95,15 +93,16 @@ Output:
 Create a new book entry:
 
     curl -s -H "Content-Type: application/json" -X PUT \
-    --data '{"name": "Journey to the Center of the Earth"}' \
+    --data '{"title": "Journey to the Center of the Earth"}' \
     http://localhost:5000/books/2 | python -m json.tool
 
 Output:
 
-    {
-        "id": 2,
-        "name": "Journey to the Center of the Earth"
-    }
+	{
+	    "author": "Asimov, Isaac",
+	    "id": 2,
+	    "title": "Journey to the Center of the Earth"
+	}
 
 ### DELETE /books/<id> - delete the book entry specified by id
 
@@ -114,8 +113,16 @@ Delete a book entry:
 
 Output:
 
-    {
-        "id": 3,
-        "name": "Twenty Thousand Leagues Under the Sea"
-    }
+	{
+	    "author": "Tolkien, J. R. R.",
+	    "id": 1,
+	    "title": "Lord of the Rings"
+	}
 
+## It is also possible to test it with Postman
+
+Download Postman from [https://www.getpostman.com/]()
+
+    $ tar xzf Postman-linux-x64-6.3.0.tar.gz
+    $ cd Postman
+    $ ./Postman
